@@ -25,7 +25,7 @@ def index():
            "keys, phishing, seo, and more chaos. Unfortunately, the recording has no sound. <br>"+\
             "What's new in V2?<br>" +\
             "- V2 cleans up some dangling unfinished features and makes the website spiderable.<br><br><br>"+\
-            "Find me on <br> <a href=https://github.com/alphactory>github</a> <br>"+\
+            "Find me on <br> <a href=https://github.com/secureighty>github</a> <br>"+\
            "<a href=https://www.linkedin.com/in/secureighty/>linkedin</a><br>"+\
            "<a href=https://twitter.com/Secureighty>twitter</a><br>"
 
