@@ -5,6 +5,9 @@ import os
 import requests
 app = flask.Flask(__name__)
 
+subscriptionKey = os.getenv("subscriptionKey")
+endpoint = 'https://api.bing.microsoft.com'
+customConfigId = 'e5f9a53e-48fa-4b66-9d43-9b52fb158d18'
 
 @app.route('/')
 def index():
@@ -33,12 +36,12 @@ def site(query):
     return get_site(query)
 
 def get_site(query):
-    subscriptionKey = os.getenv("subscriptionKey")
-    endpoint = 'https://api.bing.microsoft.com'
-    customConfigId = 'e5f9a53e-48fa-4b66-9d43-9b52fb158d18'
+    global subscriptionKey
+    global customConfigId
+    global endpoint
     searchTerm = urllib.parse.quote_plus("site:pastebin.com <!DOCTYPE html> " + query)
     resp = requests.get(f"{endpoint}/v7.0/custom/search?q={searchTerm}%20&customconfig={customConfigId}&mkt=en-US", headers={"Ocp-Apim-Subscription-Key":subscriptionKey})
-    searchresult = json.loads(resp.text)
+    searchresult = resp.json()
     firsturl = searchresult["webPages"]["value"][0]["url"]
     firsturl = firsturl[:20]+'/raw'+firsturl[20:]
 
