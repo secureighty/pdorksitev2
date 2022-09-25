@@ -42,11 +42,14 @@ def get_site(query):
     searchTerm = urllib.parse.quote_plus("site:pastebin.com <!DOCTYPE html> " + query)
     resp = requests.get(f"{endpoint}/v7.0/custom/search?q={searchTerm}%20&customconfig={customConfigId}&mkt=en-US", headers={"Ocp-Apim-Subscription-Key":subscriptionKey})
     searchresult = resp.json()
-    firsturl = searchresult["webPages"]["value"][0]["url"]
-    firsturl = firsturl[:20]+'/raw'+firsturl[20:]
+    try:
+        firsturl = searchresult["webPages"]["value"][0]["url"]
+        firsturl = firsturl[:20]+'/raw'+firsturl[20:]
 
-    rawtext=requests.get(firsturl).text
-    return rawtext
+        rawtext=requests.get(firsturl).text
+        return rawtext
+    except KeyError:
+        return flask.Response("404 :/", status=404)
 
 app.run()
 
